@@ -21,7 +21,8 @@ class Robo():
         # É necessário possuir o driver 'chromedriver' que suporte a versão do navegador a ser utilizado
         # no mesmo diretório do script
         self.options = Options()
-        self.options.add_argument('window-size=1366,768')
+        self.options.add_argument('window-size=800,600')
+        # self.options.add_argument('window-size=1366,768')
         # Oculta o navegador
         # self.options.add_argument('--headless')
         self.navegador = webdriver.Chrome(caminho_driver,options=self.options)
@@ -66,12 +67,37 @@ class Robo():
             site = BeautifulSoup(conteudo,'html.parser')
             # Impressão do código fonte da página
             # print(site.prettify())
-            nome = site.find('div', attrs={})
-            simbolo = site.find('div', attrs={})
-            preco = site.find('div', attrs={})
+            
+            #TESTE
+            bsObj = BeautifulSoup(conteudo,'html.parser')
+            #print(bsObj)
+            dados_tabela = bsObj.find('div',{'id':'fin-scr-res-table'})
+            get_corpo_tabela = dados_tabela.tbody
+            print('|'*25)
+            # print(dados_tabela)
+            # print(get_corpo_tabela)
+            linhas = get_corpo_tabela.find_all('tr')
+            i = 0
+            dados = {}
+            
+            for linha in linhas:
+                colunas = linha.find_all('td')
+                simbolo = colunas[0].get_text()
+                nome = colunas[1].get_text()
+                preco = colunas[2].get_text()
+                dados[i]= str(simbolo +','+ nome +','+ preco)
+                i += 1
+                # print(simbolo,nome,preco,sep='<|>')
+            # print(f'Registros: {i}')
+            # print(dados)
+            # dados_tabela = site.find('div',{'id':'screener-results'})
+            # print(dados_tabela.prettify())
+            # nome = site.find('div', attrs={})
+            # simbolo = site.find('div', attrs={})
+            # preco = site.find('div', attrs={})
             
         except:
-            self.driver.close()
+            self.desligar_robo()
             print('Erro!')
 
     def desligar_robo(self):
