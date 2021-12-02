@@ -70,7 +70,7 @@ class Robo():
                 # self.navegador.find_element_by_xpath('//*[@id="screener-criteria"]/div[2]/div[1]/div[3]/button[1]').click()
 
         except:
-            self.driver.close()
+            self.desligar_robo()
             print('Erro fatal!')
 
     def desligar_robo(self):
