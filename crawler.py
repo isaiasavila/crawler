@@ -69,7 +69,7 @@ class Robo():
             # Controlador do fluxo
             flag = 0
             # Faz uma varredura dos dados em 10 páginas
-            while flag < 2:
+            while flag < 11:
                 self.__ler_pagina_dados()
                 botao_proximo = self.navegador.find_element_by_xpath('//*[@id="scr-res-table"]/div[2]/button[3]/span/span')
                 # Clica no botão para próxima página de dados
